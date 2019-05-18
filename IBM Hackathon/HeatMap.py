@@ -11,12 +11,11 @@ symbols = {
     "shelter" : ['home', 'beige']
 }
 
-#this will be replaced with the data coming from nlp database
 data = {
-    '1727 E 107th St, Los Angeles, CA':"fire",
-    '9500 Gilman Dr, La Jolla, CA 92093': "medical",
-    '12174 Carmel Mountain Rd, San Diego, CA 92128': 'shelter',
-    '880 Summit Blvd, Big Bear Lake, CA 92315' : 'food',
+    '1727 E 107th St, Los Angeles, CA':["fire", "burning flames"],
+    '9500 Gilman Dr, La Jolla, CA 92093': ["medical","needs insulin"],
+    '12174 Carmel Mountain Rd, San Diego, CA 92128': ['shelter', "no place to sleep tonight"],
+    '880 Summit Blvd, Big Bear Lake, CA 92315' : ['food', "ran out of food yesterday"],
 }
 
 
@@ -31,7 +30,8 @@ for key, value in data.items():
     lng = emergency[0].geometry.location.lng
     folium.Marker(
     [lat, lng],
-    icon = folium.Icon(color=symbols.get(value)[1],  icon=symbols.get(value)[0])
+    popup= value[1],
+    icon = folium.Icon(color=symbols.get(value[0])[1],  icon=symbols.get(value[0])[0])
 ).add_to(m)
     m.save("m.html")
 
